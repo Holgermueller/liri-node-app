@@ -1,17 +1,13 @@
-import { twitter } from "./keys";
-import { request } from "https";
-
-//'use strict';
+'use strict';
 
 require("dotenv").config();
-console.log(require())
+//console.log(require())
 
 //APIs
-const spotify = new spotify(keys.spotify);
-const client = new twitter(keys.twitter);
-
 let keys = require('./keys.js');
 console.log(keys);
+const spotify = new spotify(keys.spotify);
+const client = new twitter(keys.twitter);
 
 let params = {screen_name: 'nodejs'};
 client.get('statuses/user_timeline', params, function(error, tweets, response) {

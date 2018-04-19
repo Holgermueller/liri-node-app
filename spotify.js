@@ -9,10 +9,10 @@ let spotify = new Spotify({
   secret: process.env.SPOTIFY_SECRET
 });
 
-spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
-  if (err) {
-    return console.log('Error occurred: ' + err);
-  }
- 
-console.log(data); 
-});
+spotify.search({ type: 'artist', query: 'David Bowie' }, function(err, data) {
+    if (err) {
+      return console.log('Error occurred: ' + err);
+    }
+   
+  console.log(data); 
+  });

@@ -3,6 +3,7 @@ require("dotenv").config();
 //bring in api keys and tokens
 let twitter = require('twitter');
 let keys = require('./keys.js');
+let request = require('request');
 const client = new twitter(keys.twitter);
  
 let params = {screen_name: 'HmBootcamp'};

@@ -1,27 +1,33 @@
 'use strict';
 
 require("dotenv").config();
-//console.log(require())
+
 //requires
 let spotify = require('node-spotify-api');
 let Twitter = require('twitter');
 let omdb = require('omdb');
 
-//APIs
+//bring in APIs from .env via keys
 let keys = require('./keys.js');
-//console.log(keys);
-const spotify = new spotify(keys.spotify);
+//twitter keys
 const client = new twitter(keys.twitter);
+//spotify keys (for some reason, this is the only way I can get it to work)
+let spotify = new Spotify({
+  id: process.env.SPOTIFY_ID,
+  secret: process.env.SPOTIFY_SECRET
+});
+//omdb key
 
-//link to my twitter acct.
 
-let params = {screen_name: 'nodejs'};
+//GET tweets from my twitter acct.
+let params = {screen_name: 'HmBootcamp'};
   client.get('statuses/user_timeline', params, function(error, tweets, response) {
      if (!error) {
       console.log(tweets);
     }
   });
 
+//GET 
 
 //liri must be able to take the following commmands
 //* `my-tweets`

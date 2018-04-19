@@ -4,7 +4,7 @@ require("dotenv").config();
 //console.log(require())
 //requires
 let spotify = require('node-spotify-api');
-let twitter = require('twitter');
+let Twitter = require('twitter');
 let omdb = require('omdb');
 
 //APIs

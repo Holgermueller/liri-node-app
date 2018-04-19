@@ -15,5 +15,5 @@ exports.twitter = {
   };
 
   exports.omdb = {
-
+    api_key:process.env.OMDB_Key
   }

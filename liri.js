@@ -5,24 +5,21 @@ require("dotenv").config();
 
 //APIs
 let keys = require('./keys.js');
-console.log(keys);
-const spotify = new spotify(keys.spotify);
+//console.log(keys);
+//const spotify = new spotify(keys.spotify);
+let Twitter = require('twitter');
 const client = new twitter(keys.twitter);
+  //console.log(client);
+
+//link to my twitter acct.
 
 let params = {screen_name: 'nodejs'};
 client.get('statuses/user_timeline', params, function(error, tweets, response) {
   if (!error) {
-    console.log(tweets);
+    //console.log(tweets);
   }
 });
 
-//link to my twitter acct.
-
-/*request("https://api.twitter.com/1.1/statuses/lookup.json?id=20", function(error, response, body){
-    if (!error && response.statusCode === 200) {
-        console.log(body);
-    }
-})*/
 
 //liri must be able to take the following commmands
 //* `my-tweets`

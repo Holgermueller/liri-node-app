@@ -4,15 +4,11 @@ require("dotenv").config();
 
 let Spotify = require('node-spotify-api');
 let keys = require('./keys.js');
-let spotify = new Spotify({
-  id: process.env.SPOTIFY_ID,
-  secret: process.env.SPOTIFY_SECRET
-});
+let spotify = new Spotify(keys.spotify);
 
-spotify.search({ type: 'artist', query: 'David Bowie' }, function(err, data) {
+spotify.search({ type: 'track', query: 'lazarus' }, function(err, data) {
     if (err) {
       return console.log('Error occurred: ' + err);
-    }
-   
-  console.log(data); 
+    } 
+  console.log(data.tracks.items[0]); 
   });

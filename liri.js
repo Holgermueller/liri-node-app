@@ -12,10 +12,7 @@ let keys = require('./keys.js');
 //twitter keys
 const client = new twitter(keys.twitter);
 //spotify keys (for some reason, this is the only way I can get it to work)
-let spotify = new Spotify({
-  id: process.env.SPOTIFY_ID,
-  secret: process.env.SPOTIFY_SECRET
-});
+let spotify = new Spotify(keys.spotify);
 //omdb key
 
 

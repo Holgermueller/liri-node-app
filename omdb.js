@@ -5,13 +5,13 @@ let request = require('request');
 
 let movieName =  process.argv[2];
 
-let queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=XXXXXX";
+let queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
 console.log(queryUrl);
 
 request(queryUrl, function(error, response, body) {
 
     if (!error && response.statusCode === 200) {
-      console.log(body);
+      //console.log(JSON.parse(body));
       console.log("Movie title: " + JSON.parse(body).Title);
       console.log("Release Year: " + JSON.parse(body).Year);
       console.log("IMDB Raging: " + JSON.parse(body).imdbRating);

@@ -6,7 +6,10 @@ let Spotify = require('node-spotify-api');
 let keys = require('./keys.js');
 let spotify = new Spotify(keys.spotify);
 
-spotify.search({ type: 'track', query: 'life on mars' }, function(err, data) {
+
+let songName = process.argv[2];
+
+spotify.search({ type: 'track', query: songName }, function(err, data) {
     if (err) {
       return console.log('Error occurred: ' + err);
     }

@@ -15,7 +15,6 @@ const client = new Twitter(keys.twitter);
 const spotify = new Spotify(keys.spotify);
 
 //give liri commmands to take
-
 let command = process.argv[2];
 let searchTitle = process.argv[3];
 
@@ -39,7 +38,7 @@ switch (command) {
 
 //bring in Twitter function
 function myTweets() {
-  fs.appendFile("log.txt", ", " + command, function(err) {
+  fs.appendFile("log.txt", ", " + command + "\n", function(err) {
     if (err) {
       return console.log(err);
     }
@@ -65,7 +64,7 @@ function myTweets() {
 
 //Spotify function
 function spotifyThisSong(){
-  fs.appendFile("log.txt", ", " + command + ", " + searchTitle, function(err) {
+  fs.appendFile("log.txt", ", " + command + ", " + searchTitle + "\n", function(err) {
     if (err) {
       return console.log(err);
     }
@@ -86,7 +85,7 @@ function spotifyThisSong(){
 
 //OMDB function
 function movieThis() {
-  fs.appendFile("log.txt", ", " + command + ", " + searchTitle, function(err) {
+  fs.appendFile("log.txt", ", " + command + ", " + searchTitle + "\n", function(err) {
     if (err) {
       return console.log(err);
     }
@@ -114,7 +113,7 @@ function movieThis() {
 
 //fs function
 function doWhatItSays() {
-  fs.appendFile("log.txt", ", " + command + ", " + searchTitle, function(err) {
+  fs.appendFile("log.txt", ", " + command + ", " + searchTitle + "\n", function(err) {
     if (err) {
       return console.log(err);
     }
@@ -124,6 +123,6 @@ function doWhatItSays() {
     if (error) {
       return console.log(error);
     }
-    console.log(data);
+    console.log(data.replace(/,/i, ' '));
   });
 }

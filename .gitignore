@@ -62,3 +62,9 @@ node_modules
 .DS_Store
 
 .env
+
+package.json
+
+package-lock.json
+
+package-lock.json.3092928255

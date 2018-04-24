@@ -38,7 +38,7 @@ switch (command) {
 
 //bring in Twitter function
 function myTweets() {
-  fs.appendFile("log.txt", ", " + command + "\n", function(err) {
+  fs.appendFile("log.txt", command + ", \n", function(err) {
     if (err) {
       return console.log(err);
     }
@@ -64,7 +64,7 @@ function myTweets() {
 
 //Spotify function
 function spotifyThisSong(){
-  fs.appendFile("log.txt", ", " + command + ", " + searchTitle + "\n", function(err) {
+  fs.appendFile("log.txt", command + ", " + searchTitle + ", \n", function(err) {
     if (err) {
       return console.log(err);
     }
@@ -85,7 +85,7 @@ function spotifyThisSong(){
 
 //OMDB function
 function movieThis() {
-  fs.appendFile("log.txt", ", " + command + ", " + searchTitle + "\n", function(err) {
+  fs.appendFile("log.txt", command + ", " + searchTitle + ", \n", function(err) {
     if (err) {
       return console.log(err);
     }
@@ -113,7 +113,7 @@ function movieThis() {
 
 //fs function
 function doWhatItSays() {
-  fs.appendFile("log.txt", ", " + command + ", " + searchTitle + "\n", function(err) {
+  fs.appendFile("log.txt", command + ", " + searchTitle + ", \n", function(err) {
     if (err) {
       return console.log(err);
     }
@@ -123,6 +123,6 @@ function doWhatItSays() {
     if (error) {
       return console.log(error);
     }
-    console.log(data.replace(/,/i, ' '));
+    let iWantIt = console.log(data.replace(/,/i, ' '));
   });
 }

@@ -11,16 +11,10 @@ let fs =require("fs");
 
 //bring in APIs from .env via keys
 const keys = require('./keys.js');
-//twitter keys
 const client = new Twitter(keys.twitter);
-//spotify keys
 const spotify = new Spotify(keys.spotify);
 
-//liri must be able to take the following commmands
-//* `my-tweets`
-//* `spotify-this-song`
-//* `movie-this`
-//* `do-what-it-says`
+//give liri commmands to take
 
 let command = process.argv[2];
 let searchTitle = process.argv[3];
@@ -45,7 +39,12 @@ switch (command) {
 
 //bring in Twitter function
 function myTweets() {
-  //let params = {screen_name: 'HmBootcamp'};
+  fs.appendFile("log.txt", ", " + command, function(err) {
+    if (err) {
+      return console.log(err);
+    }
+  });
+
   client.get('statuses/user_timeline', {q: 'HmBootcamp', count: 20}, function(error, tweets, response) {
      if (error) {
        consol.log(error);
@@ -66,6 +65,12 @@ function myTweets() {
 
 //Spotify function
 function spotifyThisSong(){
+  fs.appendFile("log.txt", ", " + command + ", " + searchTitle, function(err) {
+    if (err) {
+      return console.log(err);
+    }
+  });
+
   if(!searchTitle) {
     searchTitle = 'The Sign';
   }
@@ -81,16 +86,20 @@ function spotifyThisSong(){
 
 //OMDB function
 function movieThis() {
+  fs.appendFile("log.txt", ", " + command + ", " + searchTitle, function(err) {
+    if (err) {
+      return console.log(err);
+    }
+  });
+
   if(!searchTitle) {
     searchTitle = "Mr. Nobody";
   }
   let queryUrl = "http://www.omdbapi.com/?t=" + searchTitle + "&y=&plot=short&apikey=trilogy";
-  //console.log(queryUrl);
 
   request(queryUrl, function(error, response, body) {
 
     if (!error && response.statusCode === 200) {
-      //console.log(JSON.parse(body));
       console.log("Movie title: " + JSON.parse(body).Title);
       console.log("Release Year: " + JSON.parse(body).Year);
       console.log("IMDB Raging: " + JSON.parse(body).imdbRating);
@@ -105,10 +114,16 @@ function movieThis() {
 
 //fs function
 function doWhatItSays() {
+  fs.appendFile("log.txt", ", " + command + searchTitle, function(err) {
+    if (err) {
+      return console.log(err);
+    }
+  }) 
+
   fs.readFile("random.txt", "utf8", function(error, data) {
     if (error) {
       return console.log(error);
     }
     console.log(data);
-  })
+  });
 }

@@ -13,7 +13,7 @@ let fs =require("fs");
 const keys = require('./keys.js');
 //twitter keys
 const client = new Twitter(keys.twitter);
-//spotify keys (for some reason, this is the only way I can get it to work)
+//spotify keys
 const spotify = new Spotify(keys.spotify);
 
 //liri must be able to take the following commmands
@@ -22,10 +22,10 @@ const spotify = new Spotify(keys.spotify);
 //* `movie-this`
 //* `do-what-it-says`
 
-let action = process.argv[2];
-let value = process.argv[3];
+let command = process.argv[2];
+let searchTitle = process.argv[3];
 
-switch (action) {
+switch (command) {
      case "my-tweets":
      myTweets();
      break;
@@ -46,8 +46,10 @@ switch (action) {
 //bring in Twitter function
 function myTweets() {
   let params = {screen_name: 'HmBootcamp'};
-  client.get('statuses/user_timeline', params, function(error, tweets, response) {
-     if (!error) {
+  client.get('statuses/user_timeline', {count: 20}, function(error, tweets, response) {
+     if (error) {
+       consol.log(error);
+     } else {
       console.log("Tweet: " + tweets[0].text + "\nCreated at: " + tweets[0].created_at);
       console.log("Tweet: " + tweets[1].text + "\nCreated at: " + tweets[0].created_at);
       console.log("Tweet: " + tweets[2].text + "\nCreated at: " + tweets[0].created_at);
@@ -58,27 +60,31 @@ function myTweets() {
       console.log("Tweet: " + tweets[7].text + "\nCreated at: " + tweets[0].created_at);
       console.log("Tweet: " + tweets[8].text + "\nCreated at: " + tweets[0].created_at);
       console.log("Tweet: " + tweets[9].text + "\nCreated at: " + tweets[0].created_at);
-      console.log("Tweet: " + tweets[10].text + "\nCreated at: " + tweets[0].created_at);
-      console.log("Tweet: " + tweets[11].text + "\nCreated at: " + tweets[0].created_at);
-
     }
   });
 }
 
 //Spotify function
 function spotifyThisSong(){
-  spotify.search({ type: 'track', query: process.argv[3] }, function(err, data) {
+  if(!searchTitle) {
+    searchTitle = 'The Sign';
+  }
+  spotify.search({type: 'track', query: searchTitle}, function(err, data) {
     if (err) {
       return console.log('Error occurred: ' + err);
     }
-  console.log("Artist: " + data.tracks.items[0].artists[0].name + "\nTrack: " + data.tracks.items[0].name + 
-  "\nPreview Link: " + data.tracks.items[0].uri + "\nAlbum: " + data.tracks.items[0].album.name); 
+    let albumTrack = data.tracks.items;
+  console.log("Artist: " + albumTrack[0].artists[0].name + "\nTrack: " + albumTrack[0].name + 
+  "\nPreview Link: " + albumTrack[0].preview_url + "\nAlbum: " + albumTrack[0].album.name); 
   });
 }
 
 //OMDB function
 function movieThis() {
-  let queryUrl = "http://www.omdbapi.com/?t=" + process.argv[3] + "&y=&plot=short&apikey=trilogy";
+  if(!searchTitle) {
+    searchTitle = "Mr. Nobody";
+  }
+  let queryUrl = "http://www.omdbapi.com/?t=" + searchTitle + "&y=&plot=short&apikey=trilogy";
   //console.log(queryUrl);
 
   request(queryUrl, function(error, response, body) {
@@ -97,6 +103,12 @@ function movieThis() {
   });
 }
 
+//fs function
 function doWhatItSays() {
-  
+  fs.readFile("random.txt", "utf8", function(error, data) {
+    if (error) {
+      return console.log(error);
+    }
+    console.log(data);
+  })
 }

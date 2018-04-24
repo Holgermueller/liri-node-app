@@ -114,7 +114,7 @@ function movieThis() {
 
 //fs function
 function doWhatItSays() {
-  fs.appendFile("log.txt", ", " + command + searchTitle, function(err) {
+  fs.appendFile("log.txt", ", " + command + ", " + searchTitle, function(err) {
     if (err) {
       return console.log(err);
     }

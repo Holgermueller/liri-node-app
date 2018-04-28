@@ -7,7 +7,7 @@ let request = require("request");
 let Spotify = require('node-spotify-api');
 let Twitter = require('twitter');
 let omdb = require('omdb');
-let fs =require("fs");
+let fs = require("fs");
 
 //bring in APIs from .env via keys
 const keys = require('./keys.js');
@@ -123,6 +123,7 @@ function doWhatItSays() {
     if (error) {
       return console.log(error);
     }
-    let iWantIt = console.log(data.replace(/,/i, ' '));
+    let iWantIt = data.replace(/,/i, ' ');
+    spotifyThisSong(iWantIt);
   });
 }

@@ -48,16 +48,9 @@ function myTweets() {
      if (error) {
        consol.log(error);
      } else {
-      console.log("Tweet: " + tweets[0].text + "\nCreated at: " + tweets[0].created_at);
-      console.log("Tweet: " + tweets[1].text + "\nCreated at: " + tweets[1].created_at);
-      console.log("Tweet: " + tweets[2].text + "\nCreated at: " + tweets[2].created_at);
-      console.log("Tweet: " + tweets[3].text + "\nCreated at: " + tweets[3].created_at);
-      console.log("Tweet: " + tweets[4].text + "\nCreated at: " + tweets[4].created_at);
-      console.log("Tweet: " + tweets[5].text + "\nCreated at: " + tweets[5].created_at);
-      console.log("Tweet: " + tweets[6].text + "\nCreated at: " + tweets[6].created_at);
-      console.log("Tweet: " + tweets[7].text + "\nCreated at: " + tweets[7].created_at);
-      console.log("Tweet: " + tweets[8].text + "\nCreated at: " + tweets[8].created_at);
-      console.log("Tweet: " + tweets[9].text + "\nCreated at: " + tweets[9].created_at);
+       for (let i = 0; i < tweets.length; i++){
+       console.log("Tweet: " + tweets[i].text + "\nCreated at: " + tweets[i].created_at)
+       }
     }
   });
 }
@@ -123,7 +116,7 @@ function doWhatItSays() {
     if (error) {
       return console.log(error);
     }
-    let iWantIt = data.replace(/,/i, ' ');
-    spotifyThisSong(iWantIt);
+    let iWantIt = data.split(',');
+    spotifyThisSong(iWantIt[1]);
   });
 }

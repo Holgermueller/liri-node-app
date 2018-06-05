@@ -36,17 +36,17 @@ switch (command) {
 function myTweets() {
   fs.appendFile("log.txt", command + ", \n", function (err) {
     if (err) {
-      return console.log(err);
+      return console.log(chalk.red(err));
     }
   });
 
   client.get('statuses/user_timeline', { q: 'HmBootcamp', count: 20 }, function (error, tweets, response) {
     if (error) {
-      consol.log(error);
+      consol.log(chalk.red(error));
     } else {
       for (let i = 0; i < tweets.length; i++) {
-        console.log(chalk.blue("Tweet: ") + chalk.yellow(tweets[i].text) + 
-        chalk.green("\nCreated at: ") + chalk.cyan(tweets[i].created_at));
+        console.log(chalk.blue("Tweet: ") + chalk.yellow(tweets[i].text) +
+          chalk.green("\nCreated at: ") + chalk.cyan(tweets[i].created_at));
       }
     }
   });
@@ -56,7 +56,7 @@ function myTweets() {
 function spotifyThisSong() {
   fs.appendFile("log.txt", command + ", " + searchTitle + ", \n", function (err) {
     if (err) {
-      return console.log(err);
+      return console.log(chalk.red(err));
     }
   });
 
@@ -68,8 +68,10 @@ function spotifyThisSong() {
       return console.log('Error occurred: ' + err);
     }
     let albumTrack = data.tracks.items;
-    console.log("Artist: " + albumTrack[0].artists[0].name + "\nTrack: " + albumTrack[0].name +
-      "\nPreview Link: " + albumTrack[0].preview_url + "\nAlbum: " + albumTrack[0].album.name);
+    console.log(chalk.greenBright("Artist: ") + chalk.cyan(albumTrack[0].artists[0].name) +
+      chalk.greenBright("\nTrack: ") + chalk.cyan(albumTrack[0].name) +
+      chalk.greenBright("\nPreview Link: ") + chalk.magenta(albumTrack[0].preview_url) +
+      chalk.greenBright("\nAlbum: ") + chalk.cyan(albumTrack[0].album.name));
   });
 }
 
@@ -77,7 +79,7 @@ function spotifyThisSong() {
 function movieThis() {
   fs.appendFile("log.txt", command + ", " + searchTitle + ", \n", function (err) {
     if (err) {
-      return console.log(err);
+      return console.log(chalk.red(err));
     }
   });
 
@@ -103,7 +105,7 @@ function movieThis() {
 function doWhatItSays() {
   fs.appendFile("log.txt", command + ", " + searchTitle + ", \n", function (err) {
     if (err) {
-      return console.log(err);
+      return console.log(chalk.red(err));
     }
   })
 

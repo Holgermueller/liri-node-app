@@ -87,14 +87,14 @@ function movieThis() {
   let queryUrl = "http://www.omdbapi.com/?t=" + searchTitle + "&y=&plot=short&apikey=trilogy";
   request(queryUrl, function (error, response, body) {
     if (!error && response.statusCode === 200) {
-      console.log("Movie title: " + JSON.parse(body).Title);
-      console.log("Release Year: " + JSON.parse(body).Year);
-      console.log("IMDB Raging: " + JSON.parse(body).imdbRating);
-      console.log("Rotten Tomatoes Score: " + JSON.parse(body).Ratings[1].Value);
-      console.log("Country of Origin: " + JSON.parse(body).Country);
-      console.log("Language: " + JSON.parse(body).Language);
-      console.log("Plot: " + JSON.parse(body).Plot);
-      console.log("Cast: " + JSON.parse(body).Actors);
+      console.log(chalk.yellow("Movie title: ") + chalk.blue(JSON.parse(body).Title));
+      console.log(chalk.yellow("Release Year: ") + chalk.blue(JSON.parse(body).Year));
+      console.log(chalk.yellow("IMDB Raging: ") + chalk.blue(JSON.parse(body).imdbRating));
+      console.log(chalk.yellow("Rotten Tomatoes Score: ") + chalk.blue(JSON.parse(body).Ratings[1].Value));
+      console.log(chalk.yellow("Country of Origin: ") + chalk.blue(JSON.parse(body).Country));
+      console.log(chalk.yellow("Language: ") + chalk.blue(JSON.parse(body).Language));
+      console.log(chalk.yellow("Plot: ") + chalk.blue(JSON.parse(body).Plot));
+      console.log(chalk.yellow("Cast: ") + chalk.blue(JSON.parse(body).Actors));
     }
   });
 }
@@ -108,7 +108,7 @@ function doWhatItSays() {
   })
 
   fs.readFile("random.txt", "utf8", function (error, data) {
-    console.log(data);
+    console.log(chalk.magenta(data));
 
     let doWhatItSays = data.split(',');
     if (doWhatItSays === 2) {

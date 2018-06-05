@@ -5,6 +5,7 @@ let Spotify = require('node-spotify-api');
 let Twitter = require('twitter');
 let omdb = require('omdb');
 let fs = require("fs");
+const chalk = require("chalk");
 //bring in APIs from .env via keys
 const keys = require('./keys.js');
 const client = new Twitter(keys.twitter);
@@ -44,7 +45,8 @@ function myTweets() {
       consol.log(error);
     } else {
       for (let i = 0; i < tweets.length; i++) {
-        console.log("Tweet: " + tweets[i].text + "\nCreated at: " + tweets[i].created_at)
+        console.log(chalk.blue("Tweet: ") + chalk.yellow(tweets[i].text) + 
+        chalk.green("\nCreated at: ") + chalk.cyan(tweets[i].created_at));
       }
     }
   });

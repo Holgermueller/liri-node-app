@@ -42,7 +42,7 @@ function myTweets() {
 
   client.get('statuses/user_timeline', { q: 'HmBootcamp', count: 20 }, function (error, tweets, response) {
     if (error) {
-      consol.log(chalk.red(error));
+      console.log(chalk.red(error));
     } else {
       for (let i = 0; i < tweets.length; i++) {
         console.log(chalk.blue("Tweet: ") + chalk.yellow(tweets[i].text) +

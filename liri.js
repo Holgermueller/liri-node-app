@@ -44,7 +44,7 @@ function myTweets() {
     if (error) {
       console.log(chalk.red(error));
     } else {
-      tweets.forEach((tweets) => console.log(tweets.text + tweets.created_at));
+      tweets.forEach((tweets) => console.log(chalk.blue(tweets.text) + chalk.green(tweets.created_at)));
       }
   });
 }

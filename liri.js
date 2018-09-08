@@ -34,25 +34,22 @@ switch (command) {
 
 //  myTweets function
 function myTweets() {
-  fs.appendFile("log.txt", command + ", \n", function (err) {
+  fs.appendFile("log.txt", command + ", \n", err => {
     if (err) {
       return console.log(chalk.red(err));
     }
   });
 
-  client.get('statuses/user_timeline', { q: 'HmBootcamp', count: 20 }, function (error, tweets, response) {
-    if (error) {
-      console.log(chalk.red(error));
-    } else {
-      tweets.forEach((tweets) => console.log(chalk.greenBright("Tweet: ") + chalk.blue(tweets.text) + "\n" 
-      + chalk.yellow("Created at: ") + chalk.green(tweets.created_at)));
-      }
+  client.get('statuses/user_timeline', { q: 'HmBootcamp', count: 20 }, (error, tweets, response) => {
+    error ? console.log(chalk.red(error)) :
+      tweets.forEach(tweets => console.log(chalk.greenBright("Tweet: ") + chalk.blue(tweets.text) + "\n"
+        + chalk.yellow("Created at: ") + chalk.green(tweets.created_at)));
   });
 }
 
 //Spotify function
 function spotifyThisSong() {
-  fs.appendFile("log.txt", command + ", " + searchTitle + ", \n", function (err) {
+  fs.appendFile("log.txt", command + ", " + searchTitle + ", \n", err => {
     if (err) {
       return console.log(chalk.red(err));
     }
@@ -61,7 +58,7 @@ function spotifyThisSong() {
   if (!searchTitle) {
     searchTitle = 'The Sign';
   }
-  spotify.search({ type: 'track', query: searchTitle }, function (err, data) {
+  spotify.search({ type: 'track', query: searchTitle }, (err, data) => {
     if (err) {
       return console.log('Error occurred: ' + err);
     }
@@ -75,7 +72,7 @@ function spotifyThisSong() {
 
 //OMDB function
 function movieThis() {
-  fs.appendFile("log.txt", command + ", " + searchTitle + ", \n", function (err) {
+  fs.appendFile("log.txt", command + ", " + searchTitle + ", \n", err => {
     if (err) {
       return console.log(chalk.red(err));
     }
@@ -85,7 +82,7 @@ function movieThis() {
     searchTitle = "Mr. Nobody";
   }
   let queryUrl = "http://www.omdbapi.com/?t=" + searchTitle + "&y=&plot=short&apikey=trilogy";
-  request(queryUrl, function (error, response, body) {
+  request(queryUrl, (error, response, body) => {
     if (!error && response.statusCode === 200) {
       console.log(chalk.yellow("Movie title: ") + chalk.blue(JSON.parse(body).Title));
       console.log(chalk.yellow("Release Year: ") + chalk.blue(JSON.parse(body).Year));
@@ -101,13 +98,13 @@ function movieThis() {
 
 //fs function
 function doWhatItSays() {
-  fs.appendFile("log.txt", command + ", " + searchTitle + ", \n", function (err) {
+  fs.appendFile("log.txt", command + ", " + searchTitle + ", \n", err => {
     if (err) {
       return console.log(chalk.red(err));
     }
   })
 
-  fs.readFile("random.txt", "utf8", function (error, data) {
+  fs.readFile("random.txt", "utf8", (error, data) => {
     console.log(chalk.magenta(data));
 
     let doWhatItSays = data.split(',');

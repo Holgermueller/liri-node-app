@@ -1,16 +1,13 @@
 require("dotenv").config();
-//requires
 let request = require("request");
 let Spotify = require('node-spotify-api');
 let Twitter = require('twitter');
 let omdb = require('omdb');
 let fs = require("fs");
 const chalk = require("chalk");
-//bring in APIs from .env via keys
 const keys = require('./keys.js');
 const client = new Twitter(keys.twitter);
 const spotify = new Spotify(keys.spotify);
-//give liri commmands to take
 let command = process.argv[2];
 let searchTitle = process.argv[3];
 
@@ -32,7 +29,6 @@ switch (command) {
     break;
 }
 
-//  myTweets function
 function myTweets() {
   fs.appendFile("log.txt", command + ", \n", err => {
     if (err) {
@@ -47,7 +43,6 @@ function myTweets() {
   });
 }
 
-//Spotify function
 function spotifyThisSong() {
   fs.appendFile("log.txt", command + ", " + searchTitle + ", \n", err => {
     if (err) {
@@ -70,7 +65,6 @@ function spotifyThisSong() {
   });
 }
 
-//OMDB function
 function movieThis() {
   fs.appendFile("log.txt", command + ", " + searchTitle + ", \n", err => {
     if (err) {
@@ -96,7 +90,6 @@ function movieThis() {
   });
 }
 
-//fs function
 function doWhatItSays() {
   fs.appendFile("log.txt", command + ", " + searchTitle + ", \n", err => {
     if (err) {

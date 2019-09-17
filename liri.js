@@ -1,11 +1,11 @@
 require("dotenv").config();
 let request = require("request");
-let Spotify = require('node-spotify-api');
-let Twitter = require('twitter');
-let omdb = require('omdb');
+let Spotify = require("node-spotify-api");
+let Twitter = require("twitter");
+let omdb = require("omdb");
 let fs = require("fs");
 const chalk = require("chalk");
-const keys = require('./keys.js');
+const keys = require("./keys.js");
 const client = new Twitter(keys.twitter);
 const spotify = new Spotify(keys.spotify);
 let command = process.argv[2];
@@ -36,11 +36,23 @@ function myTweets() {
     }
   });
 
-  client.get('statuses/user_timeline', { q: 'HmBootcamp', count: 20 }, (error, tweets, response) => {
-    error ? console.log(chalk.red(error)) :
-      tweets.forEach(tweets => console.log(chalk.greenBright("Tweet: ") + chalk.blue(tweets.text) + "\n"
-        + chalk.yellow("Created at: ") + chalk.green(tweets.created_at)));
-  });
+  client.get(
+    "statuses/user_timeline",
+    { q: "HmBootcamp", count: 20 },
+    (error, tweets, response) => {
+      error
+        ? console.log(chalk.red(error))
+        : tweets.forEach(tweets =>
+            console.log(
+              chalk.greenBright("Tweet: ") +
+                chalk.blue(tweets.text) +
+                "\n" +
+                chalk.yellow("Created at: ") +
+                chalk.green(tweets.created_at)
+            )
+          );
+    }
+  );
 }
 
 function spotifyThisSong() {
@@ -51,17 +63,23 @@ function spotifyThisSong() {
   });
 
   if (!searchTitle) {
-    searchTitle = 'The Sign';
+    searchTitle = "The Sign";
   }
-  spotify.search({ type: 'track', query: searchTitle }, (err, data) => {
+  spotify.search({ type: "track", query: searchTitle }, (err, data) => {
     if (err) {
-      return console.log('Error occurred: ' + err);
+      return console.log("Error occurred: " + err);
     }
     let albumTrack = data.tracks.items;
-    console.log(chalk.greenBright("Artist: ") + chalk.cyan(albumTrack[0].artists[0].name) +
-      chalk.greenBright("\nTrack: ") + chalk.cyan(albumTrack[0].name) +
-      chalk.greenBright("\nPreview Link: ") + chalk.magenta(albumTrack[0].preview_url) +
-      chalk.greenBright("\nAlbum: ") + chalk.cyan(albumTrack[0].album.name));
+    console.log(
+      chalk.greenBright("Artist: ") +
+        chalk.cyan(albumTrack[0].artists[0].name) +
+        chalk.greenBright("\nTrack: ") +
+        chalk.cyan(albumTrack[0].name) +
+        chalk.greenBright("\nPreview Link: ") +
+        chalk.magenta(albumTrack[0].preview_url) +
+        chalk.greenBright("\nAlbum: ") +
+        chalk.cyan(albumTrack[0].album.name)
+    );
   });
 }
 
@@ -75,15 +93,32 @@ function movieThis() {
   if (!searchTitle) {
     searchTitle = "Mr. Nobody";
   }
-  let queryUrl = "http://www.omdbapi.com/?t=" + searchTitle + "&y=&plot=short&apikey=trilogy";
+  let queryUrl =
+    "http://www.omdbapi.com/?t=" +
+    searchTitle +
+    "&y=&plot=short&apikey=trilogy";
   request(queryUrl, (error, response, body) => {
     if (!error && response.statusCode === 200) {
-      console.log(chalk.yellow("Movie title: ") + chalk.blue(JSON.parse(body).Title));
-      console.log(chalk.yellow("Release Year: ") + chalk.blue(JSON.parse(body).Year));
-      console.log(chalk.yellow("IMDB Raging: ") + chalk.blue(JSON.parse(body).imdbRating));
-      console.log(chalk.yellow("Rotten Tomatoes Score: ") + chalk.blue(JSON.parse(body).Ratings[1].Value));
-      console.log(chalk.yellow("Country of Origin: ") + chalk.blue(JSON.parse(body).Country));
-      console.log(chalk.yellow("Language: ") + chalk.blue(JSON.parse(body).Language));
+      console.log(
+        chalk.yellow("Movie title: ") + chalk.blue(JSON.parse(body).Title)
+      );
+      console.log(
+        chalk.yellow("Release Year: ") + chalk.blue(JSON.parse(body).Year)
+      );
+      console.log(
+        chalk.yellow("IMDB Raging: ") + chalk.blue(JSON.parse(body).imdbRating)
+      );
+      console.log(
+        chalk.yellow("Rotten Tomatoes Score: ") +
+          chalk.blue(JSON.parse(body).Ratings[1].Value)
+      );
+      console.log(
+        chalk.yellow("Country of Origin: ") +
+          chalk.blue(JSON.parse(body).Country)
+      );
+      console.log(
+        chalk.yellow("Language: ") + chalk.blue(JSON.parse(body).Language)
+      );
       console.log(chalk.yellow("Plot: ") + chalk.blue(JSON.parse(body).Plot));
       console.log(chalk.yellow("Cast: ") + chalk.blue(JSON.parse(body).Actors));
     }
@@ -95,12 +130,12 @@ function doWhatItSays() {
     if (err) {
       return console.log(chalk.red(err));
     }
-  })
+  });
 
   fs.readFile("random.txt", "utf8", (error, data) => {
     console.log(chalk.magenta(data));
 
-    let doWhatItSays = data.split(',');
+    let doWhatItSays = data.split(",");
     if (doWhatItSays === 2) {
       pick(doWhatItSays[0], doWhatItSays[1]);
     } else if (doWhatItSays.length === 1) {
